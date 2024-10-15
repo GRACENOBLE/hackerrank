@@ -1,28 +1,45 @@
+/* this program creates a function that takes an array and a constant and finds the median of the array then tries to make the median equal the constant*/ 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
-func main() {
+func median(numbers []float64) float64 {
+	sort.Float64s(numbers)
+	length := len(numbers)
 
-	arr := []int{1, 1, 0, -1, -1}
-	negatives := 0
-	zeros := 0
-	positives := 0
-
-	for _, item := range arr {
-
-		if item < 0 {
-			negatives++
-		} else if item == 0 {
-			zeros++
-		} else {
-			positives++
-		}
+	if length%2 == 0 {
+		return (numbers[length/2-1] + numbers[length/2]) / 2
 	}
 
-	negativeRatio := float64(negatives) / float64(len(arr))
-	positiveRatio := float64(positives) / float64(len(arr))
-	zeroRatio := float64(zeros) / float64(len(arr))
+	return numbers[length/2]
+}
 
-	fmt.Printf("%.6f\n%.6f\n%.6f", negativeRatio, positiveRatio, zeroRatio)
+func operations(arr []float64, con float64) float64 {
+
+	med := median(arr)
+	var count float64
+
+	for med != con {
+		if med < con {
+			med++
+			count++
+		} else if med > con {
+			med--
+			count++
+		}
+	}
+	return count
+
+}
+
+func main() {
+	arr := []float64{1, 2, 3, 4, 5, 6}
+
+	fmt.Print(median(arr))
+
+	// fmt.Printf("The number of operations is %v", operations(arr, 5))
+
 }
