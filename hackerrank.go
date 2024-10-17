@@ -1,45 +1,37 @@
-/* this program creates a function that takes an array and a constant and finds the median of the array then tries to make the median equal the constant*/ 
 package main
 
 import (
 	"fmt"
-	"sort"
+	"strconv"
 )
 
-func median(numbers []float64) float64 {
-	sort.Float64s(numbers)
-	length := len(numbers)
-
-	if length%2 == 0 {
-		return (numbers[length/2-1] + numbers[length/2]) / 2
+func main(){
+	s := "12:45:54PM"
+	time := s[:len(s)-2]
+	symbol := s[len(s)-2:]
+	
+	if symbol == "AM"{
+		hour := time[:2]
+		
+		if hour == "12" {
+			hour = "00"
+		}
+		
+		print(hour+time[2:])
+		return
 	}
 
-	return numbers[length/2]
-}
+	hour, err := strconv.Atoi(s[:2])
 
-func operations(arr []float64, con float64) float64 {
-
-	med := median(arr)
-	var count float64
-
-	for med != con {
-		if med < con {
-			med++
-			count++
-		} else if med > con {
-			med--
-			count++
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		
+		if hour != 12{
+			hour += 12
 		}
 	}
-	return count
 
-}
-
-func main() {
-	arr := []float64{1, 2, 3, 4, 5, 6}
-
-	fmt.Print(median(arr))
-
-	// fmt.Printf("The number of operations is %v", operations(arr, 5))
+	print(strconv.Itoa(hour) + s[2:len(s)-2])
 
 }
