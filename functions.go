@@ -1,5 +1,5 @@
 package main
 
-func printSomethng(){
+func printSomethng() {
 	print("hello world")
 }
